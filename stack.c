@@ -33,10 +33,15 @@ void pop()
     }
 }
 void display(){
+      if (top == -1)
+    {printf("The stack is empty");
+    }
+    else{
     printf("The elements in the stack are:\n");
         for (i = 0; i <= top; i++) {
             printf("%d ", stack[i]);
         }
+    }
         printf("\n");
 }
 int main() {
