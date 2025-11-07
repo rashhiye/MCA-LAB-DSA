@@ -39,9 +39,14 @@ Each program demonstrates core data structures like **Stacks, Queues, Linked Lis
   <tr><td>7</td><td><a href="stringrev.c">stringrev.c</a></td><td>Reverses a string using stack operations.</td></tr>
   <tr><td>8</td><td><a href="setusingbitstring.c">setusingbitstring.c</a></td><td>Implements set operations (union, intersection, difference) using bit strings.</td></tr>
   <tr><td>9</td><td><a href="BCT.c">BCT.c</a></td><td>Binary Search Tree (BST) implementation with insertion and traversal.</td></tr>
+  <tr><td>10</td><td><a href="BFS.c">BFS.c</a></td><td>Breadth-First Search traversal implementation for graphs.</td></tr>
+  <tr><td>11</td><td><a href="DFS.c">DFS.c</a></td><td>Depth-First Search traversal implementation for graphs.</td></tr>
+  <tr><td>13</td><td><a href="kruskals.c">kruskals.c</a></td><td>Kruskal’s algorithm implementation for Minimum Spanning Tree (MST).</td></tr>
+  <tr><td>14</td><td><a href="primsalgorithm.c">primsalgorithm.c</a></td><td>Prim’s algorithm implementation for Minimum Spanning Tree (MST).</td></tr>
+  <tr><td>15</td><td><a href="topology.c">topology.c</a></td><td>Topological sorting implementation for directed acyclic graphs (DAG).</td></tr>
 </table>
-
 </div>
+
 
 ---
 
