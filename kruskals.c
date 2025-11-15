@@ -1,87 +1,67 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <limits.h>
+#include<stdio.h>
+#include<limits.h>
+#define MAX 10
 
-#define MAX_NODES 100
+int parent[MAX];
 
-int DFS(int node, int n, int graph[][MAX_NODES], int visited[], int recStack[], int parent);
-
-
-void main() 
-{
-    int n;
-    printf("Enter the number of nodes: ");
-    scanf("%d", &n);
-
-    // Read the Adjacency matrix
-    int A[MAX_NODES][MAX_NODES];
-    printf("Enter the adjacency matrix: \n");
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            scanf("%d", &A[i][j]);
-            // If there is no edge between two nodes
-            if (!A[i][j])
-                A[i][j] = INT_MAX;
-        }
+int find(int i){
+    while(parent[i]!=i){
+        i = parent[i];
     }
-
-    int mst[MAX_NODES][MAX_NODES] = {0};
-    int edge_count = 0, cost = 0;
-    printf("The edges in the Minimum Spanning Tree are: \n");
-    while (edge_count < n - 1) {
-        // Find the smallest edge
-        int min = INT_MAX, u, v;
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                if (A[i][j] < min) {
-                    min = A[i][j];
-                    u = i, v = j;
-                }
-            }
-        }
-
-        // Add the smallest edge to the MST and remove it from the graph
-        mst[u][v] = min;
-        A[u][v] = INT_MAX;
-
-        // If the added edge forms a cycle in the MST, remove it 
-        for (int i = 0; i < n; i++) {
-            int visited[MAX_NODES] = {0}, recStack[MAX_NODES] = {0};
-            if (DFS(i, n, mst, visited, recStack, -1)) {
-                mst[u][v] = 0;
-                break;
-            }
-        }
-
-        // Print each unique edge ({a, b} is unique if {b, a} is not already present)
-        if (!mst[v][u] && mst[u][v] != 0) {
-            cost += min;
-            printf("{%d, %d} = %d\n", u, v, mst[u][v]);
-            edge_count++;
-        }
-    }
-    printf("Minimum Cost: %d\n", cost);
+    return i;
 }
 
+void unionSet(int i, int j){
+    int a = find(i);
+    int b = find(j);
+    parent[a] = b;
+}
 
-// DFS Function: To detect Cycle in a Graph
-int DFS(int node, int n, int graph[][MAX_NODES], int visited[], int recStack[], int parent) {
-    if (!visited[node]) {
-        // recStack is used to keep track of nodes in the current path of traversal
-        visited[node] = recStack[node] = 1;
+int main(){
+    int n, e;
+    int u,v,w;
+    int min,a,b;
+    int cost = 0;
+    int edgesAccepted = 0;
+    int weight[MAX][3];
 
-        for (int i = 0; i < n; i++) {
-            if (graph[node][i] != 0) {
-                // Recursively calling the function on each unvisited node
-                if (!visited[i])
-                     DFS(i, n, graph, visited, recStack, node);
-                // If the node is already visited, and the node is not the parent of the current node (2)
-                else if (recStack[i] && i != parent)
-                    return 1;
+    printf("Enter the number of vertex :");
+    scanf("%d",&n);
+    printf("Enter the number of edges :");
+    scanf("%d",&e);
+
+    printf("Enter the edges :(u,v,weight)");
+    for(int i = 0;i<e;i++){
+        scanf("%d%d%d",&weight[i][0],&weight[i][1],&weight[i][2]);
+    }
+
+    for(int i = 0;i<n;i++){
+        parent[i]=i;
+    }
+
+    while(edgesAccepted<n-1){
+        min =INT_MAX;
+
+        for(int i = 0 ; i < e ; i++ ){
+            if(weight[i][2]<min){
+                min = weight[i][2];
+                a = weight[i][0];
+                b = weight[i][1];
+                u = i;
             }
         }
+
+        int set_a = find(a);
+        int set_b = find(b);
+
+        if(set_a!=set_b){
+            printf("%d --- %d --weight--> %d",a,b,min);
+            cost+=min;
+            edgesAccepted++;
+            unionSet(set_a,set_b);
+        }
+        weight[u][2]=9999;
     }
-    // Remove the node from the recursion stack
-    recStack[node] = 0;
+    printf("Minimum cost = %d",cost);
     return 0;
 }
