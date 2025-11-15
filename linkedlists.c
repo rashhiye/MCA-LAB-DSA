@@ -8,13 +8,13 @@ struct Node{
 struct Node* head = NULL;
 
 void insertatAtBeginning(int data){
-    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    struct Node* newNode =malloc(sizeof(struct Node));
     newNode->data = data;
     newNode->next = head;
     head = newNode;
 }
 void insertatEnd(int data){
-    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    struct Node* newNode =malloc(sizeof(struct Node));
     newNode->data = data;
     newNode->next = NULL;
     if(head == NULL){
